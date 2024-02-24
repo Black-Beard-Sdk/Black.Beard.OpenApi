@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Bb</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Black.Beard.OpenApi</Title>
+    <Company>Black beard</Company>
+    <Copyright>2023</Copyright>
+    <Description>add helpers for manipulate open api document. provide a visitor pattern.</Description>
+    <PackageProjectUrl>https://github.com/Black-Beard-Sdk/Black.Beard.OpenApi</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Black-Beard-Sdk/Black.Beard.OpenApi</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="NJsonSchema\**" />
+    <Compile Remove="NSwag\**" />
+    <EmbeddedResource Remove="NJsonSchema\**" />
+    <EmbeddedResource Remove="NSwag\**" />
+    <None Remove="NJsonSchema\**" />
+    <None Remove="NSwag\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Generators\OpenApiHelper2.cs" />
+    <Compile Remove="LocalSchemaGenerator.cs" />
+    <Compile Remove="OpenApiHelper2.cs" />
+    <Compile Remove="SchemaGeneratorContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Black.Beard.Analysis" Version="1.0.90" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.6.13" />
+    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.13" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+  </ItemGroup>
+
+</Project>
