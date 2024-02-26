@@ -41,6 +41,7 @@ namespace Bb.OpenApiServices
         /// </value>
         public string Template { get; internal set; }
 
+
         public string Contract { get; internal set; }
 
         public abstract ContextGenerator Generate();
@@ -60,9 +61,6 @@ namespace Bb.OpenApiServices
             _objectForMap = mapObject;
         }
 
-        private object _objectForMap;
-
-
         public void SetDirectory(string directory)
         {
             _dir = new DirectoryInfo(directory);
@@ -70,6 +68,7 @@ namespace Bb.OpenApiServices
 
         protected DirectoryInfo _dir;
         protected static readonly JsonSerializerSettings jsonSerializerSettings;
+        private object _objectForMap;
 
     }
 
