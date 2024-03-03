@@ -1,6 +1,6 @@
 ﻿using Bb;
 using Bb.Analysis;
-using Bb.Analysis.Traces;
+using Bb.Analysis.DiagTraces;
 using Bb.Codings;
 using System.Diagnostics;
 using System.Runtime.Remoting;

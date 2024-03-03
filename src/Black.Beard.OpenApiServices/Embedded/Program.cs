@@ -10,7 +10,8 @@ using Bb.Mock;
 
 internal class Program
 {
-    private static void Main(string[] args)
+
+    public static void Main(string[] args)
     {
 
         // Proofing against weird starting directories
@@ -102,4 +103,5 @@ internal class Program
         Environment.Exit(exitCode);
 
     }
+
 }
