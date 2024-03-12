@@ -65,17 +65,17 @@ namespace Bb.OpenApiServices
             string typeLogger = $"ILogger<{name}>";
 
             CsClassDeclaration controller = new CsClassDeclaration(name)
-                .Base("Controller")
+                .Base("ControllerBase")
                 .Ctor(ctor =>
                 {
 
                     ctor.Parameter("logger", typeLogger);
-                    ctor.Parameter("trace", "ServiceTrace");
+                    //ctor.Parameter("trace", "ServiceTrace");
 
                     ctor.Body(b =>
                     {
                         b.Set("_logger".Identifier(), "logger".Identifier());
-                        b.Set("_trace".Identifier(), "trace".Identifier());
+                        //b.Set("_trace".Identifier(), "trace".Identifier());
                     });
                     ;
                 })
@@ -105,11 +105,11 @@ namespace Bb.OpenApiServices
                  ;
              });
 
-            controller.Field("_trace", "ServiceTrace", f =>
-            {
-                f.IsPrivate()
-                ;
-            });
+            //controller.Field("_trace", "ServiceTrace", f =>
+            //{
+            //    f.IsPrivate()
+            //    ;
+            //});
 
             _ctx.AppendDocument("Controllers", name + ".cs", cs.Code().ToString());
 
@@ -176,8 +176,16 @@ namespace Bb.OpenApiServices
 
                         method.Attribute("ProducesResponseType", a =>
                         {
+
                             var code = GeneratorHelper.CodeHttp(item2.Key);
-                            a.Argument(code);
+                            if (code != null)
+                                a.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("StatusCodes"), code));
+                            
+                            else
+                            {
+                                var value = int.Parse(item2.Key);
+                                a.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(value)));
+                            }
 
                             OpenApiSchema t = t2.Schema;
                             OpenApiSchema? schema2 = null;

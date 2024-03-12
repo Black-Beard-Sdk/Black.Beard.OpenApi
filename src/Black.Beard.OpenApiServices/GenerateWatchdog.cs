@@ -34,7 +34,7 @@ namespace Bb.OpenApiServices
             ns.Class("WatchdogController", c =>
             {
 
-                c.Base("Controller");
+                c.Base("ControllerBase");
 
                 string pathController = $"/proxy/mock/{_contract}/[controller]";
                 c.Attribute("ApiController");
@@ -45,12 +45,12 @@ namespace Bb.OpenApiServices
                 {
 
                     ctor.Parameter("logger", "ILogger<WatchdogController>");
-                    ctor.Parameter("trace", "ServiceTrace");
+                    //ctor.Parameter("trace", "ServiceTrace");
 
                     ctor.Body(b =>
                     {
                         b.Set("_logger".Identifier(), "logger".Identifier());
-                        b.Set("_trace".Identifier(), "trace".Identifier());
+                        //b.Set("_trace".Identifier(), "trace".Identifier());
                     });
                 })
 
@@ -85,7 +85,7 @@ namespace Bb.OpenApiServices
                 });
 
                 c.Field("_logger", "ILogger<WatchdogController>");
-                c.Field("_trace", "ServiceTrace");
+                //c.Field("_trace", "ServiceTrace");
 
             });
 

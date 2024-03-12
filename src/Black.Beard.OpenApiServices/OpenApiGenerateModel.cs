@@ -1,5 +1,4 @@
 ﻿using Bb.Codings;
-using DataAnnotationsExtensions;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -369,7 +368,7 @@ namespace Bb.OpenApiServices
                 //    ;
                 //});
 
-                property.Attribute(typeof(MaxAttribute), a =>
+                property.Attribute(typeof(MaxLengthAttribute), a =>
                 {
                     a.Argument(GetLiteral(self.Minimum.Value))
                     ;
@@ -379,7 +378,7 @@ namespace Bb.OpenApiServices
 
             if (self.Maximum.HasValue && self.Maximum > 0)
             {
-                property.Attribute(typeof(MaxAttribute), a =>
+                property.Attribute(typeof(MaxLengthAttribute), a =>
                 {
                     a.Argument(GetLiteral(self.Maximum.Value))
                     ;

@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>Bb</RootNamespace>
@@ -13,43 +13,27 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Black-Beard-Sdk/Black.Beard.OpenApi</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Embedded\HttpExceptionModel.cs" />
     <Compile Remove="Embedded\Program.cs" />
     <Compile Remove="Embedded\ServiceProcessor.cs" />
-    <Compile Remove="Embedded\ServiceTrace.cs" />
-    <Compile Remove="Embedded\Setup.cs" />
-    <Compile Remove="Embedded\SwaggerExtension.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Embedded\log4net.config" />
+    <Compile Remove="Embedded\Startup.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Embedded\HttpExceptionModel.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Embedded\log4net.config" CopyToOutputDirectory="PreserveNewest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="Embedded\Program.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Embedded\ServiceTrace.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Embedded\SwaggerExtension.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Embedded\ServiceProcessor.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Embedded\Setup.cs">
+    <Content Include="Embedded\Startup.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -62,13 +46,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Black.Beard.Analysis" Version="1.0.99" />
-    <PackageReference Include="Black.Beard.Jslt" Version="1.0.300" />
-    <PackageReference Include="Black.Beard.Process" Version="1.0.99" />
-    <PackageReference Include="Black.Beard.Projects.Models" Version="1.0.99" />
-    <PackageReference Include="DataAnnotationsExtensions" Version="5.0.1.27" />
-    <PackageReference Include="Microsoft.OpenApi" Version="1.6.13" />
-    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.13" />
+    <PackageReference Include="Black.Beard.Analysis" Version="1.0.107" />
+    <PackageReference Include="Black.Beard.Jslt" Version="1.0.308" />
+    <PackageReference Include="Black.Beard.Process" Version="1.0.107" />
+    <PackageReference Include="Black.Beard.Projects.Models" Version="1.0.107" />
+    <PackageReference Include="Black.Beard.Roslyn" Version="1.0.107" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.6.14" />
+    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.14" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
