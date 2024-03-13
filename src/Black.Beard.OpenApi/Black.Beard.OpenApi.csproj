@@ -17,18 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="NJsonSchema\**" />
-    <Compile Remove="NSwag\**" />
-    <EmbeddedResource Remove="NJsonSchema\**" />
-    <EmbeddedResource Remove="NSwag\**" />
-    <None Remove="NJsonSchema\**" />
-    <None Remove="NSwag\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Generators\OpenApiHelper2.cs" />
     <Compile Remove="LocalSchemaGenerator.cs" />
-    <Compile Remove="OpenApiHelper2.cs" />
     <Compile Remove="SchemaGeneratorContext.cs" />
   </ItemGroup>
 

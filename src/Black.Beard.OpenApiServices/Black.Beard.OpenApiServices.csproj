@@ -15,29 +15,7 @@
     <RepositoryType>github</RepositoryType>
     <OutputType>Library</OutputType>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Embedded\HttpExceptionModel.cs" />
-    <Compile Remove="Embedded\Program.cs" />
-    <Compile Remove="Embedded\ServiceProcessor.cs" />
-    <Compile Remove="Embedded\Startup.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Embedded\HttpExceptionModel.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Embedded\Program.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Embedded\ServiceProcessor.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Embedded\Startup.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
+ 
   <ItemGroup>
     <None Include="..\..\README.md">
       <Pack>True</Pack>
