@@ -16,6 +16,7 @@ namespace Bb.OpenApiServices
 
         public static void Generate(ContextGenerator ctx, string contract, string @namespace)
         {
+
             var g = new GenerateWatchdog(contract, @namespace,
                 "Microsoft.AspNetCore.Mvc"
                 );
@@ -31,9 +32,12 @@ namespace Bb.OpenApiServices
             var ns = CreateNamespace(cs);
             ns.DisableWarning("CS8618", "CS1591");
 
+            Context.AddAssemblyName("Microsoft.AspNetCore.Mvc.Core");
+            Context.AddAssemblyName("System.ComponentModel.Annotations");
+
+            // 
             ns.Class("WatchdogController", c =>
             {
-
                 c.Base("ControllerBase");
 
                 string pathController = $"/proxy/mock/{_contract}/[controller]";

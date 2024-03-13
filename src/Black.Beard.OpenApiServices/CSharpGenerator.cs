@@ -1,4 +1,5 @@
 ﻿using Bb.Codings;
+using System.Xml.Xsl;
 
 namespace Bb.OpenApiServices
 {
@@ -14,9 +15,17 @@ namespace Bb.OpenApiServices
             this._namespace = @namespace;
         }
 
+
+        protected void SetContext(ContextGenerator ctx)
+        {
+            this.Context = ctx;
+        }
+
         public void Generate(ContextGenerator ctx)
         {
 
+            SetContext(ctx);
+            
             var type = GetType();
             var methods =type.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 
@@ -41,6 +50,8 @@ namespace Bb.OpenApiServices
         private readonly string[] _usings;
         private readonly string _namespace;
 
+        public ContextGenerator Context { get; private set; }
+    
     }
 
 

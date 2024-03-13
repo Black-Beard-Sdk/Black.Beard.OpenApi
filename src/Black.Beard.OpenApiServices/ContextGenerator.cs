@@ -3,6 +3,7 @@ using Bb.Analysis;
 using Bb.Analysis.DiagTraces;
 using Bb.Codings;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.Remoting;
 using System.Text;
 
@@ -22,6 +23,8 @@ namespace Bb.OpenApiServices
             this._datas = new Dictionary<object, Data>();
             this._files = new HashSet<string>();
             this.Diagnostics = new ScriptDiagnostics();
+            this._assemblies = new HashSet<Assembly>();
+            _assemblyNames = new HashSet<string>();
         }
 
         #region Append documents
@@ -142,7 +145,26 @@ namespace Bb.OpenApiServices
 
         public ScriptDiagnostics Diagnostics { get; }
 
+
         public string TargetPath { get; }
+
+        public ContextGenerator AddAssemblyName(string assemblyName)
+        {
+            _assemblyNames.Add(assemblyName);
+            return this;
+        }
+
+        public ContextGenerator AddAssembly(Type type)
+        {
+            _assemblies.Add(type.Assembly);
+            return this;
+        }
+
+        public ContextGenerator AddAssembly(Assembly assembly)
+        {
+            _assemblies.Add(assembly);
+            return this;
+        }
 
         public Data GetDataFor(object key)
         {
@@ -158,10 +180,15 @@ namespace Bb.OpenApiServices
 
         public IEnumerable<string> Files => _files;
 
+        public IEnumerable<Assembly> Assemblies => _assemblies;
+        public IEnumerable<string> AssemblyNames => _assemblyNames;
+
         public string? ContractDocumentFilename { get; set; }
 
+        private readonly HashSet<Assembly> _assemblies;
+        private readonly HashSet<string> _assemblyNames;
         private HashSet<string> _files;
- 
+
     }
 
 

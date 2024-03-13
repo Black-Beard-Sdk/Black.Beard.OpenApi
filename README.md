@@ -1,7 +1,7 @@
 # Black.Beard.OpenApi
 Helpers for open api
 
-
+[![Build status](https://ci.appveyor.com/api/projects/status/6ywrrb8pnhyqiabi?svg=true)](https://ci.appveyor.com/project/gaelgael5/black-beard-openapi)
 
 ## create a open api contract from a type
 ```csharp

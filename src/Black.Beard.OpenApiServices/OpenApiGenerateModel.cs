@@ -20,8 +20,7 @@ namespace Bb.OpenApiServices
                   "Newtonsoft.Json",
                   "System",
                   "System.Collections.Generic",
-                  "System.ComponentModel.DataAnnotations",
-                  "DataAnnotationsExtensions")
+                  "System.ComponentModel.DataAnnotations")
         {
 
         }
