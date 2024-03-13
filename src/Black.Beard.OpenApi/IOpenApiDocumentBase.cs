@@ -36,7 +36,7 @@
         /// Gets the current context.
         /// </summary>
         /// <returns></returns>
-        string? Context { get; }
+        string? ContextName { get; }
 
         /// <summary>
         /// Gets the path of the current context.

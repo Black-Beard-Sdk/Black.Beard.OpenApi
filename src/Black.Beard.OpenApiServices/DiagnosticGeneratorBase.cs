@@ -8,13 +8,14 @@ namespace Bb.OpenApiServices
 
         protected virtual void Initialize(ContextGenerator ctx)
         {
-            _ctx = ctx;
+            Context = ctx;
             _diag = ctx.Diagnostics;
         }
 
      
-        protected ContextGenerator _ctx;
         protected ScriptDiagnostics _diag;
+
+        public ContextGenerator Context { get; private set; }
 
     }
 

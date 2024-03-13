@@ -72,7 +72,7 @@ namespace Bb.OpenApiServices
                 if (hasMember)
                 {
                     var c = cs.Code().ToString();
-                    _ctx.AppendDocument("Models", item.Key + ".cs", c);
+                    Context.AppendDocument("Models", item.Key + ".cs", c);
                 }
             }
 
@@ -83,7 +83,7 @@ namespace Bb.OpenApiServices
         public override CSMemberDeclaration? VisitSchema(OpenApiSchema self)
         {
 
-            string kind = this.Context;
+            string kind = this.ContextName;
             string key = this.LastPath;
 
             var typeName = self.Type;

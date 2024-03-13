@@ -35,7 +35,6 @@ namespace Bb.OpenApiServices
             Context.AddAssemblyName("Microsoft.AspNetCore.Mvc.Core");
             Context.AddAssemblyName("System.ComponentModel.Annotations");
 
-            // 
             ns.Class("WatchdogController", c =>
             {
                 c.Base("ControllerBase");

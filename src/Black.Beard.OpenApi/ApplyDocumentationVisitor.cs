@@ -54,10 +54,10 @@ namespace Bb
         {
 
             StringBuilder sb1 = new StringBuilder(500);
-            if (this.Context == "class")
+            if (this.ContextName == "class")
                 sb1 = ResolveDescriptionForClass(self);
 
-            else if (this.Context == "property")
+            else if (this.ContextName == "property")
                 sb1 = ResolveDescriptionForProperty(self);
 
             else

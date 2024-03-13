@@ -14,6 +14,7 @@ namespace Bb.OpenApiServices
     public class OpenApiGenerateDataTemplate : OpenApiGeneratorJsltBase
     {
 
+
         public OpenApiGenerateDataTemplate()
         {
 
@@ -841,8 +842,8 @@ namespace Bb.OpenApiServices
             {
                 var content = item.Schema.Accept(this);
 
-                var target = _ctx.AppendDocument("Templates", templateName, content.ToString());
-                _ctx.GetDataFor(self).SetData("templateName" + code, target);
+                var target = Context.AppendDocument("Templates", templateName, content.ToString());
+                Context.GetDataFor(self).SetData("templateName" + code, target);
 
             }
             else

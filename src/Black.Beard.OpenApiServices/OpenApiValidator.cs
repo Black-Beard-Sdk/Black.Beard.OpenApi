@@ -71,7 +71,7 @@ namespace Bb.OpenApiServices
 
             string key = self.Key;
             OpenApiSchema value = self.Value;
-            string kind = this.Context;
+            string kind = this.ContextName;
 
             switch (kind)
             {

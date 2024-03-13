@@ -80,7 +80,7 @@ namespace Bb
         /// Gets the current context.
         /// </summary>
         /// <returns></returns>
-        public string? Context
+        public string? ContextName
         {
             get
             {

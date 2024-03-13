@@ -23,9 +23,9 @@ namespace Bb.OpenApiServices
             this._datas = new Dictionary<object, Data>();
             this._files = new HashSet<string>();
             this.Diagnostics = new ScriptDiagnostics();
-            this._assemblies = new HashSet<Assembly>();
             _assemblyNames = new HashSet<string>();
         }
+
 
         #region Append documents
 
@@ -143,28 +143,54 @@ namespace Bb.OpenApiServices
 
         #endregion Append documents
 
+
         public ScriptDiagnostics Diagnostics { get; }
 
 
         public string TargetPath { get; }
 
-        public ContextGenerator AddAssemblyName(string assemblyName)
+
+        public bool AddAssembly(Type type)
+        {
+            var assembly = type.Assembly;
+            if (!assembly.IsDynamic && !string.IsNullOrEmpty(assembly.FullName))
+            {
+                _assemblyNames.Add(assembly.FullName);
+                return true;
+            }
+            return false;
+        }
+
+
+        public bool AddAssembly(Assembly assembly)
+        {
+            if (!assembly.IsDynamic && !string.IsNullOrEmpty(assembly.FullName))
+            {
+                _assemblyNames.Add(assembly.FullName);
+                return true;
+            }
+            return false;
+        }
+
+
+        public bool AddAssemblyName(AssemblyName assemblyName)
+        {
+            _assemblyNames.Add(assemblyName.ToString());
+            return true;
+        }
+
+
+        /// <summary>
+        /// add assembly name on the context
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <returns>return true if the assembly name has success</returns>
+        public bool AddAssemblyName(string assemblyName)
         {
             _assemblyNames.Add(assemblyName);
-            return this;
+            return true;
         }
 
-        public ContextGenerator AddAssembly(Type type)
-        {
-            _assemblies.Add(type.Assembly);
-            return this;
-        }
-
-        public ContextGenerator AddAssembly(Assembly assembly)
-        {
-            _assemblies.Add(assembly);
-            return this;
-        }
 
         public Data GetDataFor(object key)
         {
@@ -176,18 +202,15 @@ namespace Bb.OpenApiServices
 
         }
 
-        private Dictionary<object, Data> _datas;
-
         public IEnumerable<string> Files => _files;
 
-        public IEnumerable<Assembly> Assemblies => _assemblies;
         public IEnumerable<string> AssemblyNames => _assemblyNames;
 
         public string? ContractDocumentFilename { get; set; }
 
-        private readonly HashSet<Assembly> _assemblies;
         private readonly HashSet<string> _assemblyNames;
         private HashSet<string> _files;
+        private Dictionary<object, Data> _datas;
 
     }
 

@@ -39,6 +39,8 @@ namespace Bb.OpenApiServices
         public override CSMemberDeclaration? VisitDocument(OpenApiDocument self)
         {
 
+            Context.AddAssemblyName("System.ComponentModel.Annotations");
+
             foreach (var item in self.Paths)
                 item.Accept(this);
 
@@ -111,7 +113,7 @@ namespace Bb.OpenApiServices
             //    ;
             //});
 
-            _ctx.AppendDocument("Controllers", name + ".cs", cs.Code().ToString());
+            Context.AppendDocument("Controllers", name + ".cs", cs.Code().ToString());
 
             return null;
 
