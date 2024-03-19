@@ -59,7 +59,7 @@ namespace Bb.OpenApiServices
 
                 .Method("IsUpAndRunning", "ActionResult<WatchdogResult>", m =>
                 {
-                    m.Attribute("HttpGet", a => a.Argument("\"isupandrunning\""));
+                    m.Attribute("HttpGet", a => a.Argument("isupandrunning"));
                     m.Attribute("Produces", a => a.Argument(@"application/json".Literal()));
                     m.Body(b =>
                     {
