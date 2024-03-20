@@ -1,16 +1,9 @@
-﻿using Bb;
-using Bb.Codings;
-using Bb.OpenApi;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Bb.Codings;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
-using SharpYaml.Tokens;
-using System.Diagnostics;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
 using Bb.Extensions;
 using Microsoft.OpenApi.Interfaces;
 using Microsoft.OpenApi.Expressions;
@@ -25,11 +18,7 @@ namespace Bb.OpenApiServices
 
         public OpenApiGenerateServices(string contract, string artifactName, string @namespace, params string[] usings)
             : base(artifactName, @namespace, usings.Concat(
-                    "Microsoft.AspNetCore.Http",
                     "Microsoft.AspNetCore.Mvc",
-                    "Microsoft.Extensions.Logging",
-                    "System",
-                    "System.Text",
                     "Newtonsoft.Json",
                     "Newtonsoft.Json.Linq"))
         {

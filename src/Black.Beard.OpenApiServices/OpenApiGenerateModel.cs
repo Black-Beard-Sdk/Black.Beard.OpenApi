@@ -17,9 +17,7 @@ namespace Bb.OpenApiServices
 
         public OpenApiGenerateModel(string artifactName, string @namespace)
             : base(artifactName, @namespace,
-                  "Newtonsoft.Json",
-                  "System",
-                  "System.Collections.Generic",
+                  "Newtonsoft.Json",                  
                   "System.ComponentModel.DataAnnotations")
         {
 
