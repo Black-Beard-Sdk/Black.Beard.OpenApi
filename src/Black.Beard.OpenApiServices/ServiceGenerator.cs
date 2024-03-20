@@ -53,7 +53,8 @@ namespace Bb.OpenApiServices
         }
 
         /// <summary>
-        /// Sets the object for map.
+        /// Sets the object for map. All properties of the object will be used to replace the token in the template.
+        /// for match token, the property name must be the same as the token name. "{{token}}"
         /// </summary>
         /// <param name="mapObject">The map object.</param>
         public void SetObjectForMap (object mapObject)
