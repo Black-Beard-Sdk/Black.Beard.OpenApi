@@ -20,7 +20,7 @@ namespace Bb.Extensions
             if (schema.Reference != null)
                 return schema.Reference.Id;
 
-            Stop();
+            // Stop();
 
             return null;
 

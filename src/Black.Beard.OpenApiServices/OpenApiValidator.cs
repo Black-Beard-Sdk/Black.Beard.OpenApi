@@ -448,12 +448,13 @@ namespace Bb.OpenApiServices
         public override void VisitMediaType(KeyValuePair<string, OpenApiMediaType> self)
         {
 
-            if (self.Key == "application/json")
+            if (self.Key == "application/json" || self.Key == "text/json")
                 self.Value.Schema.Accept(this);
 
             else
             {
                 Stop();
+                self.Value.Schema.Accept(this);
             }
 
         }
