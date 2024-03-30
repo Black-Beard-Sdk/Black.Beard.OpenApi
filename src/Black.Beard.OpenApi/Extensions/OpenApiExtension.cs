@@ -134,6 +134,62 @@ namespace Bb.Extensions
         /// <param name="componentDatas"><see cref="OpenApiDocument"/></param>
         /// <param name="rootKey">the root key of the contract schema</param>
         /// <returns>string</returns>
+        public static JsonObject GetSchemaObjects(this OpenApiDocument document, string rootKey, out string id, out KeyValuePair<string, JsonNode> properties)
+        {
+
+            string payload = document.SerializeToString();
+            payload = payload.Substring(1).Trim(); // Remove bom
+
+            // Get the list of models
+            var doc = JsonDocument.Parse(payload);
+            var components = doc.RootElement.GetProperty("components").GetProperty("schemas");
+            ObjectEnumerator e = components.EnumerateObject();
+
+            var definitions = new JsonObject();
+
+            properties = BuildModel(rootKey, e, definitions, document);
+            id = BuildId(document, properties.Key);
+
+            return definitions;
+
+        }
+
+        ///// <summary>
+        ///// Collect all types from OpenApiDocument <see cref="OpenApiDocument"/> and generate a contract schema 
+        ///// </summary>
+        ///// <param name="componentDatas"><see cref="OpenApiDocument"/></param>
+        ///// <param name="rootKey">the root key of the contract schema</param>
+        ///// <returns>string</returns>
+        //public static JsonObject GenerateSchemaContract(this string id, string title, JsonObject definitions, Action<JsonObject> action)
+        //{
+
+        //    var result = new JsonObject()
+        //    {
+        //        ["$id"] = id,
+        //        ["$schema"] = "http://json-schema.org/draft-04/schema#",
+        //        ["title"] = title,
+        //        //["type"] = type,
+        //        //["additionalProperties"] = true,
+        //    };
+
+        //    action(result);
+
+        //    //if (properties !=null)
+        //    //    result["properties"] = properties;
+
+        //    result["definitions"] = definitions;
+
+        //    return result;
+
+        //}
+
+
+        /// <summary>
+        /// Collect all types from OpenApiDocument <see cref="OpenApiDocument"/> and generate a contract schema 
+        /// </summary>
+        /// <param name="componentDatas"><see cref="OpenApiDocument"/></param>
+        /// <param name="rootKey">the root key of the contract schema</param>
+        /// <returns>string</returns>
         public static JsonObject GenerateSchemaContract(this OpenApiDocument document, string rootKey, string id = null)
         {
 
@@ -145,13 +201,12 @@ namespace Bb.Extensions
             var components = doc.RootElement.GetProperty("components").GetProperty("schemas");
             ObjectEnumerator e = components.EnumerateObject();
 
-            JsonProperty? root = default;
             var definitions = new JsonObject();
 
-            var properties = BuildModel(rootKey , e, definitions, document);
+            var properties = BuildModel(rootKey, e, definitions, document);
 
             if (string.IsNullOrEmpty(id))
-                id = BuildId(document, root);
+                id = BuildId(document, properties.Key);
 
             var result = new JsonObject()
             {
@@ -168,13 +223,14 @@ namespace Bb.Extensions
 
         }
 
+     
         /// <summary>
         /// Collect all types from OpenApiDocument <see cref="OpenApiDocument"/> and generate a contract schema 
         /// </summary>
         /// <param name="componentDatas"><see cref="OpenApiDocument"/></param>
         /// <param name="rootKey">the root key of the contract schema</param>
         /// <returns>string</returns>
-        public static JsonObject GenerateSchemaMultiContract(this OpenApiDocument document, string[] rootKeys, string id = null)
+        public static JsonObject GenerateSchemaMultiContract(this OpenApiDocument document, string[] rootKeys, string id)
         {
 
             string payload = document.SerializeToString();
@@ -184,14 +240,10 @@ namespace Bb.Extensions
             var doc = JsonDocument.Parse(payload);
             var components = doc.RootElement.GetProperty("components").GetProperty("schemas");
             ObjectEnumerator e = components.EnumerateObject();
-
-            JsonProperty? root = default;
+            
             var definitions = new JsonObject();
 
             var properties = BuildMultiModel(rootKeys, e, definitions, document);
-
-            if (string.IsNullOrEmpty(id))
-                id = BuildId(document, root);
 
             var result = new JsonObject()
             {
@@ -208,7 +260,7 @@ namespace Bb.Extensions
 
         }
 
-        private static string BuildId(OpenApiDocument document, JsonProperty? root)
+        private static string BuildId(OpenApiDocument document, string root)
         {
 
             string id = document.Info.Title
@@ -216,7 +268,7 @@ namespace Bb.Extensions
                           .Replace("  ", " ")
                           .Replace(" ", "-");
 
-            id = "http://local/" + id + "/" + root.Value.Name;
+            id = "http://local/" + id + "/" + root;
 
             return id;
 
@@ -225,10 +277,10 @@ namespace Bb.Extensions
         private static JsonObject BuildMultiModel(string[] rootKeys, ObjectEnumerator modelList, JsonObject definitions, OpenApiDocument document)
         {
 
-            
+
             JsonObject jsonNode = new JsonObject()
             {
-                
+
             };
 
             List<string> results = new List<string>(rootKeys.Length);
@@ -243,7 +295,7 @@ namespace Bb.Extensions
                 var name = item.Name;
 
                 if (rootKeys.Contains(name))
-                {                    
+                {
                     var valueDefinition = JsonNode.Parse(ConvertPath(item.Value.GetRawText()));
                     definitions.Add(name, valueDefinition);
 
@@ -262,7 +314,7 @@ namespace Bb.Extensions
                 }
 
             }
-            
+
             return jsonNode;
 
         }
@@ -309,23 +361,23 @@ namespace Bb.Extensions
             return path;
         }
 
-        /// <summary>
-        /// Collect all types from OpenApiDocument <see cref="OpenApiComponents"/> and generate a contract schema 
-        /// </summary>
-        /// <param name="componentDatas"><see cref="OpenApiComponents"/></param>
-        /// <param name="rootKey">the root key of the contract schema</param>
-        /// <returns>string</returns>
-        public static JsonObject GenerateSchemaContracts(this OpenApiComponents componentDatas, string rootKey)
-        {
+        ///// <summary>
+        ///// Collect all types from OpenApiDocument <see cref="OpenApiComponents"/> and generate a contract schema 
+        ///// </summary>
+        ///// <param name="componentDatas"><see cref="OpenApiComponents"/></param>
+        ///// <param name="rootKey">the root key of the contract schema</param>
+        ///// <returns>string</returns>
+        //public static JsonObject GenerateSchemaContracts(this OpenApiComponents componentDatas, string rootKey)
+        //{
 
-            var doc = new OpenApiDocument()
-            {
-                Components = componentDatas
-            };
+        //    var doc = new OpenApiDocument()
+        //    {
+        //        Components = componentDatas
+        //    };
 
-            return doc.GenerateSchemaContract(rootKey);
+        //    return doc.GenerateSchemaContract(rootKey);
 
-        }
+        //}
 
         /// <summary>
         /// Generate a contract schema <see cref="OpenApiComponents"/> from specified type

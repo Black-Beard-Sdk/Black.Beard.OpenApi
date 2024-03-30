@@ -65,14 +65,42 @@ namespace Black.Beard.OpenApiUnitTest
 
             var file = Path.Combine(_directory.FullName, "Models", "ModelTest1.json");
 
-            OpenApiDocument contract = OpenApiExtension.LoadOpenApiContract(@"D:\srcs\puscontract\Contrat_pus\contract.json");
-            var contractParcel = contract.GenerateSchemaContract("ParcelList", "http://pickup-services/parcel/ParcelList");
-            var txtParcel = contractParcel.ToJsonString(new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
-            File.WriteAllText(@"D:\srcs\puscontract\Contrat_pus\ContractParcel.json", txtParcel);
+            OpenApiDocument contract = OpenApiExtension.LoadOpenApiContract(@"D:\\srcs_externe\\puscontract\\Contrat_pus\\contract.json");
+            //var contractParcel1 = contract.GenerateSchemaContract("ParcelList", "http://pickup-services/parcel/ParcelList");
+            //var txtParcel1 = contractParcel1.ToJsonString(new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
+            ////File.WriteAllText(@"D:\srcs\puscontract\Contrat_pus\ContractParcel.json", txtParcel);
 
-            var contractEvent = contract.GenerateSchemaContract("TrackingList", "http://pickup-services/parcel/TrackingList");
-            var txtEvents = contractEvent.ToJsonString(new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
-            File.WriteAllText(@"D:\srcs\puscontract\Contrat_pus\ContractTrackingList.json", txtEvents);
+
+
+            var definitions = contract.GetSchemaObjects("Parcel", out var id, out var properties);
+
+
+
+
+
+            var contractSchema = OpenApiExtension.GenerateSchemaContract("", "", definitions, c =>
+            {
+                c["type"] = "array";
+                c["maxItems"] = "";
+                c["items"] = "";
+                c["description"] = "";
+                // c["property"] = properties.Value;
+
+            });
+
+
+
+            var txtParcel2 = contractSchema.ToJsonString(new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
+
+
+
+            //var txtParcel2 = contractParcel2.ToJsonString(new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
+            ////File.WriteAllText(@"D:\srcs\puscontract\Contrat_pus\ContractParcel.json", txtParcel);
+
+
+            //var contractEvent = contract.GenerateSchemaContract("TrackingList", "http://pickup-services/parcel/TrackingList");
+            //var txtEvents = contractEvent.ToJsonString(new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
+            //File.WriteAllText(@"D:\srcs\puscontract\Contrat_pus\ContractTrackingList.json", txtEvents);
 
         }
 
