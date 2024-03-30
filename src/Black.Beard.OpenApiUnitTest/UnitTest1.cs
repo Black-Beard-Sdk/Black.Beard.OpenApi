@@ -72,25 +72,25 @@ namespace Black.Beard.OpenApiUnitTest
 
 
 
-            var definitions = contract.GetSchemaObjects("Parcel", out var id, out var properties);
+            var root = contract.GetSchemaObjects("Parcel", out var definitions);
 
 
 
 
 
-            var contractSchema = OpenApiExtension.GenerateSchemaContract("", "", definitions, c =>
-            {
-                c["type"] = "array";
-                c["maxItems"] = "";
-                c["items"] = "";
-                c["description"] = "";
-                // c["property"] = properties.Value;
+            //var contractSchema = OpenApiExtension.GenerateSchemaContract("", "", definitions, c =>
+            //{
+            //    c["type"] = "array";
+            //    c["maxItems"] = "";
+            //    c["items"] = "";
+            //    c["description"] = "";
+            //    // c["property"] = properties.Value;
 
-            });
+            //});
 
 
 
-            var txtParcel2 = contractSchema.ToJsonString(new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
+            //var txtParcel2 = contractSchema.ToJsonString(new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
 
 
 

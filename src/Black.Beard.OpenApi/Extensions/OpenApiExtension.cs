@@ -24,6 +24,7 @@ namespace Bb.Extensions
     public static class OpenApiExtension
     {
 
+
         #region I/O
 
         /// <summary>
@@ -134,7 +135,7 @@ namespace Bb.Extensions
         /// <param name="componentDatas"><see cref="OpenApiDocument"/></param>
         /// <param name="rootKey">the root key of the contract schema</param>
         /// <returns>string</returns>
-        public static JsonObject GetSchemaObjects(this OpenApiDocument document, string rootKey, out string id, out KeyValuePair<string, JsonNode> properties)
+        public static JsonObject GetSchemaObjects(this OpenApiDocument document, string rootKey, out JsonElement? rootModel)
         {
 
             string payload = document.SerializeToString();
@@ -147,8 +148,7 @@ namespace Bb.Extensions
 
             var definitions = new JsonObject();
 
-            properties = BuildModel(rootKey, e, definitions, document);
-            id = BuildId(document, properties.Key);
+            rootModel = GetModels(rootKey, e, definitions, document);            
 
             return definitions;
 
@@ -316,6 +316,38 @@ namespace Bb.Extensions
             }
 
             return jsonNode;
+
+        }
+
+        private static JsonElement? GetModels(string rootKey, ObjectEnumerator modelList, JsonObject definitions, OpenApiDocument document)
+        {
+
+            JsonElement? root = default;
+
+            // Get the list of models
+            var _definitions = SchemaIdentifyModels.Get(document, rootKey);
+
+            while (modelList.MoveNext())
+            {
+
+                JsonProperty item = modelList.Current;
+                var name = item.Name;
+
+                if (rootKey == name)
+                    root = item.Value;
+
+                else if (_definitions.Contains(name))
+                {
+                    var valueDefinition = JsonNode.Parse(ConvertPath(item.Value.GetRawText()));
+                    definitions.Add(name, valueDefinition);
+                }
+
+            }
+
+            if (root == null)
+                throw new Exception($"rootKey '{rootKey}' not found");
+
+            return root;
 
         }
 
