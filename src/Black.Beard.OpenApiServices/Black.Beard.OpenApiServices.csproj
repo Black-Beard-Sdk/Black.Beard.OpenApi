@@ -24,10 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Black.Beard.Analysis" Version="1.0.112" />
-    <PackageReference Include="Black.Beard.Process" Version="1.0.112" />
-    <PackageReference Include="Black.Beard.Projects.Models" Version="1.0.112" />
-    <PackageReference Include="Black.Beard.Roslyn" Version="1.0.112" />
+    <PackageReference Include="Black.Beard.Analysis" Version="1.0.113" />
+    <PackageReference Include="Black.Beard.Process" Version="1.0.113" />
+    <PackageReference Include="Black.Beard.Projects.Models" Version="1.0.113" />
+    <PackageReference Include="Black.Beard.Roslyn" Version="1.0.113" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.6.14" />
     <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.14" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
