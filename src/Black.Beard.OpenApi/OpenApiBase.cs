@@ -167,8 +167,8 @@ namespace Bb
         /// <summary>
         /// Get the value from the store
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
+        /// <param name="key">key for resolve the value</param>
+        /// <param name="value">value stored</param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
         public bool TryGetInStorage(string key, out object? value)
@@ -177,6 +177,32 @@ namespace Bb
             if (s == null)
                 throw new InvalidOperationException("No storage found");
             return s.TryGetInStorage(key, out value);
+        }
+
+        /// <summary>
+        /// Get the value from the store
+        /// </summary>
+        /// <typeparam name="T">type of value to return</typeparam>
+        /// <param name="key">key for resolve the value</param>
+        /// <param name="value">value stored</param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        public bool TryGetInStorage<T>(string key, out T? value)
+        {
+
+            var s = _pathStorages.Peek();            
+            if (s == null)
+                throw new InvalidOperationException("No storage found");
+            
+            if (s.TryGetInStorage(key, out var v))
+            {
+                value = (T)v;
+                return true;
+            }
+
+            value = default;
+            return false;
+
         }
 
         /// <summary>
