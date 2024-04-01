@@ -165,6 +165,44 @@ namespace Bb
         #region Stores
 
         /// <summary>
+        /// Get the value from the store
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        public bool TryGetInStorage(string key, out object? value)
+        {
+            var s = _pathStorages.Peek();
+            if (s == null)
+                throw new InvalidOperationException("No storage found");
+            return s.TryGetInStorage(key, out value);
+        }
+
+        /// <summary>
+        /// return true if a store contains an entry for the specified key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        public bool ContainsInStorage(string key)
+        {
+            var s = _pathStorages.Peek();
+            if (s == null)
+                throw new InvalidOperationException("No storage found");
+            return s.ContainsInStorage(key);
+        }
+
+        /// <summary>
+        /// return true if a store is available
+        /// </summary>
+        /// <returns></returns>
+        protected bool HasCurrentStore()
+        {
+            return _pathStorages.Count > 0;
+        }
+
+        /// <summary>
         /// Get the current store
         /// </summary>
         /// <returns></returns>
@@ -195,7 +233,7 @@ namespace Bb
             _pathStorages.Peek().AddInStorage(key, value);
         }
 
-        protected IStore Store()
+        protected IStore NewStore()
         {
             return new DisposingStorage(this);
         }
