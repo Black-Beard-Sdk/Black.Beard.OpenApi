@@ -165,7 +165,16 @@ namespace Bb
         #region Stores
 
         /// <summary>
-        /// Append a new layer for storing datas
+        /// Get the current store
+        /// </summary>
+        /// <returns></returns>
+        protected IStore CurrentStore()
+        {
+            return _pathStorages.Peek();
+        }
+
+        /// <summary>
+        /// Append a new layer for storing data
         /// </summary>
         void IStoreSource.StorePop()
         {
