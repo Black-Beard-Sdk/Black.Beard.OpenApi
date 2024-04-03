@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Linq;
 using Microsoft.VisualBasic;
+using Bb.Analysis.Tools;
 
 namespace Bb
 {
@@ -345,75 +346,75 @@ namespace Bb
     }
 
 
-    /// <summary>
-    /// Object for storing data in processing visitor
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class DisposingStorage : IStore
-    {
+    ///// <summary>
+    ///// Object for storing data in processing visitor
+    ///// </summary>
+    ///// <typeparam name="T"></typeparam>
+    //public class DisposingStorage : IStore
+    //{
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DisposingStorage{T}"/> class.
-        /// </summary>
-        /// <param name="document"></param>
-        public DisposingStorage(IStoreSource document)
-        {
-            this._dic = new Dictionary<string, object>();
-            _documentRoot = document;
-            _documentRoot.StorePush(this);
-        }
+    //    /// <summary>
+    //    /// Initializes a new instance of the <see cref="DisposingStorage{T}"/> class.
+    //    /// </summary>
+    //    /// <param name="document"></param>
+    //    public DisposingStorage(IStoreSource document)
+    //    {
+    //        this._dic = new Dictionary<string, object>();
+    //        _documentRoot = document;
+    //        _documentRoot.StorePush(this);
+    //    }
 
-        #region Storing
+    //    #region Storing
 
-        public void AddInStorage(string key, object value)
-        {
-            if (_dic.ContainsKey(key))
-                _dic[key] = value;
-            else
-                _dic.Add(key, value);
-        }
+    //    public void AddInStorage(string key, object value)
+    //    {
+    //        if (_dic.ContainsKey(key))
+    //            _dic[key] = value;
+    //        else
+    //            _dic.Add(key, value);
+    //    }
 
-        public bool TryGetInStorage(string key, out object? value)
-        {
-            return _dic.TryGetValue(key, out value);
-        }
+    //    public bool TryGetInStorage(string key, out object? value)
+    //    {
+    //        return _dic.TryGetValue(key, out value);
+    //    }
 
-        public bool ContainsInStorage(string key)
-        {
-            return _dic.ContainsKey(key);
-        }
+    //    public bool ContainsInStorage(string key)
+    //    {
+    //        return _dic.ContainsKey(key);
+    //    }
 
-        public void Dispose()
-        {
-            _documentRoot.StorePop();
-        }
+    //    public void Dispose()
+    //    {
+    //        _documentRoot.StorePop();
+    //    }
 
-        #endregion Storing
+    //    #endregion Storing
 
-        private readonly IStoreSource _documentRoot;
-        private readonly Dictionary<string, object> _dic;
-    }
+    //    private readonly IStoreSource _documentRoot;
+    //    private readonly Dictionary<string, object> _dic;
+    //}
 
-    public interface IStore : IDisposable
-    {
+    //public interface IStore : IDisposable
+    //{
 
-        void AddInStorage(string key, object value);
-
-
-        bool TryGetInStorage(string key, out object value);
+    //    void AddInStorage(string key, object value);
 
 
-        bool ContainsInStorage(string key);
+    //    bool TryGetInStorage(string key, out object value);
 
-    }
 
-    public interface IStoreSource
+    //    bool ContainsInStorage(string key);
 
-    {
-        void StorePop();
+    //}
 
-        void StorePush(object toDispose);
+    //public interface IStoreSource
 
-    }
+    //{
+    //    void StorePop();
+
+    //    void StorePush(object toDispose);
+
+    //}
 
 }
